@@ -37,6 +37,7 @@ form.addEventListener("submit", (event) => {
       break;
     case "diviser":
       if (num2 === 0) {
+        resultat.style.color ="Gray"
         resultat.textContent = "Résultat : Division par 0 ";
         return;
       }
@@ -52,6 +53,14 @@ form.addEventListener("submit", (event) => {
       return;
   }
 
+  if (result > 0) {
+    resultat.style.color = "green";
+  } else if (result === 0) {
+    resultat.style.color = "blue";
+  } else {
+    resultat.style.color = "orange";
+  }
+
   resultat.textContent = `Résultat : ${result}`;
 
   const operationString = `${
@@ -59,7 +68,6 @@ form.addEventListener("submit", (event) => {
   } : ${num1} ${operatorSymbol} ${num2} = ${result}`;
 
   ancienneOperation.push(operationString);
-
 
   const historique = document.createElement("li");
 
