@@ -3,42 +3,66 @@ const value1 = document.getElementById("value1");
 const value2 = document.getElementById("value2");
 const operator = document.getElementById("operator");
 const resultat = document.getElementById("resultat");
+const historiqueContainer = document.createElement("div");
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
+document.body.appendChild(historiqueContainer);
+const listeHistorique = document.createElement("ul");
+historiqueContainer.innerHTML = "<h3>Historique des opérations</h3>";
+historiqueContainer.appendChild(listeHistorique);
 
-        const num1 = parseFloat(value1.value);
-        const num2 = parseFloat(value2.value);
-        const operation = operator.value;
+const ancienneOperation = [];
 
-        if (isNaN(num1) || isNaN(num2)) {
-            resultat.textContent = "Résultat : Veuillez entrer des nombres valides.";
-            return;
-        }
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-        let result;
-        switch (operation) {
-            case "plus":
-                result = num1 + num2;
-                break;
-            case "multiplier":
-                result = num1 * num2;
-                break;
-            case "diviser":
-                if (num2 === 0) {
-                    resultat.textContent = "Résultat : Division par 0";
-                    return;
-                }
-                result = num1 / num2;
-                break;
-            case "moins":
-                result = num1 - num2;
-                break;
-            default:
-                resultat.textContent = "Erreur";
-                return;
-        }
+  const num1 = parseFloat(value1.value);
+  const num2 = parseFloat(value2.value);
+  const operation = operator.value;
 
-  
-        resultat.textContent = `Résultat : ${result}`;
-    });
+  if (isNaN(num1) || isNaN(num2)) {
+    resultat.textContent = "Résultat : Veuillez entrer des nombres valides.";
+    return;
+  }
+
+  let result;
+  let operatorSymbol;
+  switch (operation) {
+    case "plus":
+      result = num1 + num2;
+      operatorSymbol = "+";
+      break;
+    case "multiplier":
+      result = num1 * num2;
+      operatorSymbol = "*";
+      break;
+    case "diviser":
+      if (num2 === 0) {
+        resultat.textContent = "Résultat : Division par 0 ";
+        return;
+      }
+      result = num1 / num2;
+      operatorSymbol = "/";
+      break;
+    case "moins":
+      result = num1 - num2;
+      operatorSymbol = "-";
+      break;
+    default:
+      resultat.textContent = "Erreur";
+      return;
+  }
+
+  resultat.textContent = `Résultat : ${result}`;
+
+  const operationString = `${
+    ancienneOperation.length + 1
+  } : ${num1} ${operatorSymbol} ${num2} = ${result}`;
+
+  ancienneOperation.push(operationString);
+
+
+  const historique = document.createElement("li");
+
+  historique.textContent = operationString;
+  listeHistorique.appendChild(historique);
+});
