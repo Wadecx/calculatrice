@@ -1,3 +1,5 @@
+import { addition } from "./calcul.js";
+
 const form = document.querySelector("form");
 const value1 = document.getElementById("value1");
 const value2 = document.getElementById("value2");
@@ -26,9 +28,10 @@ form.addEventListener("submit", (event) => {
 
   let result;
   let operatorSymbol;
+
   switch (operation) {
     case "plus":
-      result = num1 + num2;
+      result = addition(num1, num2);
       operatorSymbol = "+";
       break;
     case "multiplier":
@@ -37,7 +40,7 @@ form.addEventListener("submit", (event) => {
       break;
     case "diviser":
       if (num2 === 0) {
-        resultat.style.color ="Gray"
+        resultat.style.color = "Gray";
         resultat.textContent = "Résultat : Division par 0 ";
         return;
       }
