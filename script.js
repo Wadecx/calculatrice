@@ -1,4 +1,4 @@
-import { addition } from "./calcul.js";
+import { addition, soustraction, multiplication, division } from "./calcul.js";
 
 const form = document.querySelector("form");
 const value1 = document.getElementById("value1");
@@ -35,7 +35,7 @@ form.addEventListener("submit", (event) => {
       operatorSymbol = "+";
       break;
     case "multiplier":
-      result = num1 * num2;
+      result = multiplication(num1, num2);
       operatorSymbol = "*";
       break;
     case "diviser":
@@ -44,11 +44,11 @@ form.addEventListener("submit", (event) => {
         resultat.textContent = "Résultat : Division par 0 ";
         return;
       }
-      result = num1 / num2;
+      result = division(num1, num2);
       operatorSymbol = "/";
       break;
     case "moins":
-      result = num1 - num2;
+      result = soustraction(num1, num2);
       operatorSymbol = "-";
       break;
     default:
